@@ -8,9 +8,9 @@ ENV PROJ_NAME=${PROJ_NAME}
 ## Toolchain Setup
 # Install required tools to run the compiler.
 RUN   dpkg --add-architecture i386 \
- &&   apt-get update \                                                                                                                                                                                                                        
- &&   apt-get install --yes ca-certificates wget libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 make cmake hashdeep \                                                                                                                                                                                                  
- &&   update-ca-certificates    
+ &&   apt-get update \
+ &&   apt-get install --yes ca-certificates wget libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 make cmake hashdeep \
+ &&   update-ca-certificates
 # Get the S32DS build_tools folder, extracted from S32PA.
 RUN wget -qO- https://github.com/AutomotiveDevOps/powerpc-eabivle-gcc-dockerfiles/releases/download/v2.1.10/S32DS_build_tools.tar.bz2 | tar xjvf - -C /
 # Copy board specific make files to the build_tools directory.
@@ -18,7 +18,7 @@ WORKDIR /S32DS/build_tools/
 # Add the powerpc-eabivle gcc folder to the path
 ENV PATH=${PATH}:/S32DS/build_tools/powerpc-eabivle-4_9/bin
 
-## Build 
+## Build
 # Set up the build directory
 RUN mkdir -p /S32DS/build
 WORKDIR /S32DS/build
@@ -36,10 +36,10 @@ RUN make \
 	--jobs=8
 
 # Generate Digital Forensics XML: Maximum tracibility for all of the build and artifacts.
-#     DFXML is a file format designed to capture metadata and provenance 
+#     DFXML is a file format designed to capture metadata and provenance
 #     information about the operation of software tools in a systematic fashion.
 RUN hashdeep -c md5,sha256,tiger,whirlpool -d -r /S32DS/build > /S32DS/build/${PROJ_NAME}.dfxml
 
-# Bundle up the build 
+# Bundle up the build
 WORKDIR /S32DS/artifacts/
 RUN tar -cjf /S32DS/artifacts/${PROJ_NAME}_artifacts.tar.bz2 /S32DS/build

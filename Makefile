@@ -54,7 +54,7 @@ ifndef RAM
 else
 	SRC_LD += ${realpath ${SRC_DIR}/Project_Settings/Linker_Files/57xx_ram.ld}
 endif
-	
+
 ifndef OPT_FLAGS
 	OPT_FLAGS+=message-length=0
 	OPT_FLAGS+=signed-char
@@ -157,10 +157,10 @@ ${ELF}: ${OBJS}
 
 ${HEX}: ${ELF}
 	${OBJCOPY} --strip-all --output-target ihex $< "$@"
-	
+
 ${BIN}: ${ELF}
 	${OBJCOPY} --strip-all --output-target binary $< "$@"
-	
+
 ${S19}: ${ELF}
 	${OBJCOPY} --strip-all --output-target srec $< $@
 
@@ -176,7 +176,7 @@ clean:
 %.o: %.c
 	$(file >$@.args) $(foreach O,${C_FLAGS},$(file >>$@.args,$O))
 	$(CC) -MMD -MP -MF"${@:%.o=%.d}" -MT"${@}" -o "$@" -c "$<" @$@.args
-	
+
 %.o: %.S
 	$(file >$@.args) $(foreach O,${C_FLAGS},$(file >>$@.args,$O))
 	$(CC) -MMD -MP -MF"${@:%.o=%.d}" -MT"${@}" -o "$@" -c "$<" @$@.args

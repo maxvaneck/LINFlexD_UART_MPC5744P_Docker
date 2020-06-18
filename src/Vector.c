@@ -98,5 +98,3 @@ PPCASMF( e_b   IVOR14_Vector );
 VEC_ALIGN;
 PPCASMF( IVOR15_Vector: );
 PPCASMF( e_b   IVOR15_Vector );
-
-

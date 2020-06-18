@@ -203,4 +203,3 @@ void echoLINFlexD_0() {                 /* Optional utility to echo char. */
   txLINFlexD_0( rxLINFlexD_0() );
 }
 /*****************************************************************************/
-

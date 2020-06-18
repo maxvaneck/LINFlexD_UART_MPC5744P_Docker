@@ -30,9 +30,9 @@
 #endif
 #ifdef __DCC__ /* Diab */
        .section ".startup",4,rx
-#endif       
+#endif
         .globl	_start
-		
+
 _start:
 
 ;#****************************** Turn off SWT ********************************
@@ -147,17 +147,17 @@ ldmem_loop:
     e_stmw      r0,0(r5)            # Write all 32 registers to SRAM
     e_addi      r5,r5,128           # Increment the RAM pointer to next 128bytes
     e_bdnz      ldmem_loop          # Loop for all of SRAM
-    
+
 ;#*************** Load Initialised Data Values from Flash into RAM ************/
 ;# Initialised Data - ".data"
 DATACOPY:
     e_lis       r9, __DATA_SIZE@ha      # Load upper SRAM load size (# of bytes) into R9
-    e_or2i      r9, __DATA_SIZE@l       # Load lower SRAM load size into R9                                     
-    e_cmp16i    r9,0                    # Compare to see if equal to 0                                  
+    e_or2i      r9, __DATA_SIZE@l       # Load lower SRAM load size into R9
+    e_cmp16i    r9,0                    # Compare to see if equal to 0
     e_beq       SDATACOPY               # Exit cfg_ROMCPY if size is zero (no data to initialise)
-                                        
+
     mtctr       r9                      # Store no. of bytes to be moved in counter
-                                        
+
     e_lis       r10, __DATA_ROM_ADDR@h  # Load address of first SRAM load into R10
     e_or2i      r10, __DATA_ROM_ADDR@l  # Load lower address of SRAM load into R10
     e_subi      r10,r10, 1              # Decrement address to prepare for ROMCPYLOOP
@@ -170,18 +170,18 @@ DATACOPY:
 
 DATACPYLOOP:
     e_lbzu      r4, 1(r10)              # Load data byte at R10 into R4,incrementing (update) ROM address
-    e_stbu      r4, 1(r5)               # Store R4 data byte into SRAM at R5 and update SRAM address 
+    e_stbu      r4, 1(r5)               # Store R4 data byte into SRAM at R5 and update SRAM address
     e_bdnz      DATACPYLOOP             # Branch if more bytes to load from ROM
 
 ;# Small Initialised Data - ".sdata"
-SDATACOPY:    
+SDATACOPY:
     e_lis       r9, __SDATA_SIZE@ha     # Load upper SRAM load size (# of bytes) into R9
-    e_or2i      r9, __SDATA_SIZE@l      # Load lower SRAM load size into R9                                     
-    e_cmp16i    r9,0                    # Compare to see if equal to 0                                  
+    e_or2i      r9, __SDATA_SIZE@l      # Load lower SRAM load size into R9
+    e_cmp16i    r9,0                    # Compare to see if equal to 0
     e_beq       ROMCPYEND               # Exit cfg_ROMCPY if size is zero (no data to initialise)
-                                        
+
     mtctr       r9                      # Store no. of bytes to be moved in counter
-                                        
+
     e_lis       r10, __SDATA_ROM_ADDR@h # Load address of first SRAM load into R10
     e_or2i      r10, __SDATA_ROM_ADDR@l # Load lower address of SRAM load into R10
     e_subi      r10,r10, 1              # Decrement address to prepare for ROMCPYLOOP
@@ -194,10 +194,10 @@ SDATACOPY:
 
 SDATACPYLOOP:
     e_lbzu      r4, 1(r10)              # Load data byte at R10 into R4,incrementing (update) ROM address
-    e_stbu      r4, 1(r5)               # Store R4 data byte into SRAM at R5 and update SRAM address 
+    e_stbu      r4, 1(r5)               # Store R4 data byte into SRAM at R5 and update SRAM address
     e_bdnz      SDATACPYLOOP            # Branch if more bytes to load from ROM
-    
-    
+
+
 ROMCPYEND:
 
 ;#*************************** Enable ME Bit in MSR *****************************
@@ -296,14 +296,13 @@ bss_Init_end:
 		e_or2i	r2, _SDA2_BASE_@l	;# (provided by linker).
 
 		e_stwu	r0,-64(r1)			;# Terminate stack.
- 
+
 ;# Jump to Main
 		e_bl	main
 
 #ifdef __GNUC__   /* GCC */
-;# Empty _fini function 
+;# Empty _fini function
 		.globl	_fini
 _fini:
 		e_b .
 #endif
-

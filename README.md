@@ -1,4 +1,4 @@
-# LINFlexD_UART_MPC5744P_Docker 
+# LINFlexD_UART_MPC5744P_Docker
 
 [Build your PPC e200 projects on Github].
 
