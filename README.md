@@ -7,7 +7,7 @@
 This repository is a single repo example combining:
 
 - [powerpc-eabivle-gcc-dockerfiles](https://github.com/AutomotiveDevOps/powerpc-eabivle-gcc-dockerfiles)
-- [nxp-devkit-mpc57xx-docker examples](https://github.com/AutomotiveDevOps/nxp-devkit-mpc57xx-docker/]
+- [nxp-devkit-mpc57xx-docker examples](https://github.com/AutomotiveDevOps/nxp-devkit-mpc57xx-docker/)
 - [Github actions](https://github.com/features/actions)
 
 
