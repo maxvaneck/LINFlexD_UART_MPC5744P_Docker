@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Source Build
 
 on:
   push:
@@ -7,12 +7,13 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: Build the Docker Image
       run: sh build.sh
+   - uses: actions/upload-artifact@v2
+     with:
+       name: linflexd_uart_mpc5744p_docker_artifacts.tar.bz2
+       path: artifacts/linflexd_uart_mpc5744p_docker_artifacts.tar.bz2
