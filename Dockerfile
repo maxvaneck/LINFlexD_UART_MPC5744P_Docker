@@ -9,7 +9,7 @@ ENV PROJ_NAME=${PROJ_NAME}
 # Install required tools to run the compiler.
 RUN   dpkg --add-architecture i386 \
  &&   apt-get update \
- &&   apt-get install --yes ca-certificates wget libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 make cmake hashdeep \
+ &&   apt-get install --yes ca-certificates wget libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 make cmake hashdeep bzip2 \
  &&   update-ca-certificates
 # Get the S32DS build_tools folder, extracted from S32PA.
 RUN wget -qO- https://github.com/AutomotiveDevOps/powerpc-eabivle-gcc-dockerfiles/releases/download/v2.1.10/S32DS_build_tools.tar.bz2 | tar xjvf - -C /
