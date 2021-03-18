@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 
 ## Configuration, read from environment.
 ARG PROJ_NAME
-ENV PROJ_NAME=${PROJ_NAME}
+ENV PROJ_NAME=${/LINFlexD_UART_MPC5744P_Docker}
 
 ## Toolchain Setup
 # Install required tools to run the compiler.
